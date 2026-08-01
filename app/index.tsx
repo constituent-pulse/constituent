@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useMemo } from 'react';
 import {
   Animated,
   Easing,
@@ -13,12 +13,13 @@ import { PulseLogo } from '@/src/components/PulseLogo';
 import { colors, spacing } from '@/src/theme/tokens';
 
 const SPLASH_DURATION_MS = 2600;
+const USE_NATIVE_DRIVER = Platform.OS !== 'web';
 
 export default function SplashScreen() {
   const router = useRouter();
-  const opacity = useRef(new Animated.Value(0)).current;
-  const scale = useRef(new Animated.Value(0.9)).current;
-  const loadingOpacity = useRef(new Animated.Value(0)).current;
+  const opacity = useMemo(() => new Animated.Value(0), []);
+  const scale = useMemo(() => new Animated.Value(0.9), []);
+  const loadingOpacity = useMemo(() => new Animated.Value(0), []);
 
   useEffect(() => {
     Animated.parallel([
@@ -26,28 +27,28 @@ export default function SplashScreen() {
         toValue: 1,
         duration: 700,
         easing: Easing.out(Easing.cubic),
-        useNativeDriver: true,
+        useNativeDriver: USE_NATIVE_DRIVER,
       }),
       Animated.sequence([
         Animated.timing(scale, {
           toValue: 1.045,
           duration: 720,
           easing: Easing.out(Easing.cubic),
-          useNativeDriver: true,
+          useNativeDriver: USE_NATIVE_DRIVER,
         }),
         Animated.spring(scale, {
           toValue: 1,
           damping: 9,
           stiffness: 120,
           mass: 0.8,
-          useNativeDriver: true,
+          useNativeDriver: USE_NATIVE_DRIVER,
         }),
       ]),
       Animated.timing(loadingOpacity, {
         toValue: 1,
         delay: 550,
         duration: 600,
-        useNativeDriver: true,
+        useNativeDriver: USE_NATIVE_DRIVER,
       }),
     ]).start();
 

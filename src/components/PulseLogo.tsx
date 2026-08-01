@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     elevation: 12,
   },
   glow: {
-    ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFill,
     backgroundColor: 'rgba(45, 125, 255, 0.08)',
   },
   line: {
