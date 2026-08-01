@@ -1,4 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native';
+import { AppIcon, type AppIconName } from '@/src/components/ui/AppIcon';
+import { platformShadow } from '@/src/components/ui/shadows';
 import { colors, radius } from '@/src/theme/tokens';
 
 export function VoteCard() {
@@ -27,9 +29,9 @@ export function VoteCard() {
       <View style={styles.voteTray}>
         <Text style={styles.swipeText}>Swipe to vote</Text>
         <View style={styles.voteOptions}>
-          <VoteOption label="No" mark="X" tone="danger" />
-          <VoteOption label="Need More Info" mark="?" tone="neutral" />
-          <VoteOption label="Yes" mark="✓" tone="success" />
+          <VoteOption icon="against" label="No" tone="danger" />
+          <VoteOption icon="information" label="Need More Info" tone="neutral" />
+          <VoteOption icon="check" label="Yes" tone="success" />
         </View>
       </View>
     </View>
@@ -37,12 +39,12 @@ export function VoteCard() {
 }
 
 function VoteOption({
+  icon,
   label,
-  mark,
   tone,
 }: {
+  icon: AppIconName;
   label: string;
-  mark: string;
   tone: 'danger' | 'neutral' | 'success';
 }) {
   const toneStyle = {
@@ -51,16 +53,16 @@ function VoteOption({
     success: styles.voteCircleSuccess,
   }[tone];
 
-  const markStyle = {
-    danger: styles.voteMarkDanger,
-    neutral: styles.voteMarkNeutral,
-    success: styles.voteMarkSuccess,
+  const iconColor = {
+    danger: 'danger',
+    neutral: 'navy950',
+    success: 'success',
   }[tone];
 
   return (
     <View style={styles.voteOption}>
       <View style={[styles.voteCircle, toneStyle]}>
-        <Text style={[styles.voteMark, markStyle]}>{mark}</Text>
+        <AppIcon color={iconColor} name={icon} size={22} weight="bold" />
       </View>
       <Text style={styles.voteLabel}>{label}</Text>
     </View>
@@ -72,11 +74,13 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     borderWidth: 1,
     borderColor: colors.gray100,
-    shadowColor: colors.navy950,
-    shadowOpacity: 0.13,
-    shadowRadius: 18,
-    shadowOffset: { width: 0, height: 9 },
-    elevation: 8,
+    ...platformShadow({
+      color: colors.navy950,
+      opacity: 0.13,
+      radius: 18,
+      offset: { width: 0, height: 9 },
+      elevation: 8,
+    }),
   },
   voteCard: {
     width: 248,
@@ -230,20 +234,6 @@ const styles = StyleSheet.create({
   },
   voteCircleSuccess: {
     borderColor: colors.success,
-  },
-  voteMark: {
-    fontSize: 24,
-    lineHeight: 26,
-    fontWeight: '800',
-  },
-  voteMarkDanger: {
-    color: colors.danger,
-  },
-  voteMarkNeutral: {
-    color: colors.navy950,
-  },
-  voteMarkSuccess: {
-    color: colors.success,
   },
   voteLabel: {
     marginTop: 4,

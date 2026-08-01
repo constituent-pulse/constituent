@@ -2,42 +2,38 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { AppIcon } from '@/src/components/ui/AppIcon';
 import { colors, spacing } from '@/src/theme/tokens';
 
-type OnboardingTopNavProps = {
-  isFirstStep: boolean;
-  isLastStep: boolean;
+type AccountTopNavProps = {
+  canGoBack: boolean;
   onBack: () => void;
   onSkip: () => void;
 };
 
-export function OnboardingTopNav({
-  isFirstStep,
-  isLastStep,
-  onBack,
-  onSkip,
-}: OnboardingTopNavProps) {
+export function AccountTopNav({ canGoBack, onBack, onSkip }: AccountTopNavProps) {
   return (
     <View style={styles.topBar}>
       <View style={styles.topBarSide}>
-        {!isFirstStep ? (
+        {canGoBack ? (
           <Pressable
             accessibilityLabel="Back"
             accessibilityRole="button"
             hitSlop={12}
             onPress={onBack}
-            style={styles.topBackButton}
+            style={({ pressed }) => [styles.backButton, pressed && styles.pressed]}
           >
             <AppIcon color="navy950" name="back" size={24} weight="semibold" />
           </Pressable>
         ) : null}
       </View>
 
-      <View style={styles.topBarSide}>
-        {!isLastStep ? (
-          <Pressable accessibilityRole="button" onPress={onSkip} style={styles.skipButton}>
-            <Text style={styles.skipText}>Skip</Text>
-          </Pressable>
-        ) : null}
-      </View>
+      <Pressable
+        accessibilityLabel="Skip account setup"
+        accessibilityRole="button"
+        hitSlop={12}
+        onPress={onSkip}
+        style={({ pressed }) => [styles.skipButton, pressed && styles.pressed]}
+      >
+        <Text style={styles.skipText}>Skip</Text>
+      </Pressable>
     </View>
   );
 }
@@ -48,16 +44,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    borderBottomWidth: 1,
-    borderBottomColor: colors.gray200,
     paddingHorizontal: spacing.lg,
   },
   topBarSide: {
-    minWidth: 44,
-    alignItems: 'center',
+    width: 44,
+    alignItems: 'flex-start',
     justifyContent: 'center',
   },
-  topBackButton: {
+  backButton: {
     width: 36,
     height: 36,
     alignItems: 'flex-start',
@@ -73,5 +67,8 @@ const styles = StyleSheet.create({
     color: colors.navy950,
     fontSize: 15,
     fontWeight: '700',
+  },
+  pressed: {
+    opacity: 0.72,
   },
 });

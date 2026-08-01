@@ -9,7 +9,10 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "org.constituentpulse.constituent"
+      "bundleIdentifier": "org.constituentpulse.constituent",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "package": "org.constituentpulse.constituent",
@@ -33,6 +36,13 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "bab3d466-1450-486f-ba31-610dd9be84bf"
+      }
+    },
+    "owner": "constituentpulse"
   }
 }

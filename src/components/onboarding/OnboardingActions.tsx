@@ -1,4 +1,5 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { platformShadow } from '@/src/components/ui/shadows';
 import { colors } from '@/src/theme/tokens';
 
 type OnboardingActionsProps = {
@@ -62,11 +63,13 @@ const styles = StyleSheet.create({
   },
   primaryButton: {
     backgroundColor: colors.blue500,
-    shadowColor: colors.blue500,
-    shadowOpacity: 0.2,
-    shadowRadius: 8,
-    shadowOffset: { width: 0, height: 4 },
-    elevation: 4,
+    ...platformShadow({
+      color: colors.blue500,
+      opacity: 0.2,
+      radius: 8,
+      offset: { width: 0, height: 4 },
+      elevation: 4,
+    }),
   },
   secondaryButton: {
     flex: 1,

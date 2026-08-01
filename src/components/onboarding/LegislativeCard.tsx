@@ -1,4 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native';
+import { AppIcon } from '@/src/components/ui/AppIcon';
+import { platformShadow } from '@/src/components/ui/shadows';
 import { colors, radius } from '@/src/theme/tokens';
 
 export function LegislativeCard() {
@@ -6,14 +8,7 @@ export function LegislativeCard() {
     <View style={[styles.visualCard, styles.billCard]}>
       <View style={styles.billHeader}>
         <View style={styles.capitolTile}>
-          <View style={styles.capitolDome} />
-          <View style={styles.capitolRoof} />
-          <View style={styles.capitolColumns}>
-            <View style={styles.capitolColumn} />
-            <View style={styles.capitolColumn} />
-            <View style={styles.capitolColumn} />
-          </View>
-          <View style={styles.capitolBase} />
+          <AppIcon color="white" name="representatives" size={28} weight="medium" />
         </View>
 
         <View style={styles.billCopy}>
@@ -40,11 +35,13 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     borderWidth: 1,
     borderColor: colors.gray100,
-    shadowColor: colors.navy950,
-    shadowOpacity: 0.13,
-    shadowRadius: 18,
-    shadowOffset: { width: 0, height: 9 },
-    elevation: 8,
+    ...platformShadow({
+      color: colors.navy950,
+      opacity: 0.13,
+      radius: 18,
+      offset: { width: 0, height: 9 },
+      elevation: 8,
+    }),
   },
   billCard: {
     width: 214,
@@ -65,40 +62,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 5,
     backgroundColor: colors.navy950,
-  },
-  capitolDome: {
-    width: 17,
-    height: 9,
-    borderTopLeftRadius: 12,
-    borderTopRightRadius: 12,
-    backgroundColor: colors.white,
-  },
-  capitolRoof: {
-    width: 25,
-    height: 3,
-    marginTop: 2,
-    borderRadius: 2,
-    backgroundColor: colors.white,
-  },
-  capitolColumns: {
-    width: 21,
-    height: 10,
-    marginTop: 2,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  capitolColumn: {
-    width: 3,
-    height: 10,
-    borderRadius: 1,
-    backgroundColor: colors.white,
-  },
-  capitolBase: {
-    width: 27,
-    height: 3,
-    marginTop: 2,
-    borderRadius: 2,
-    backgroundColor: colors.white,
   },
   billCopy: {
     flex: 1,

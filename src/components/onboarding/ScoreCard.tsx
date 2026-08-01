@@ -1,4 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native';
+import { AppIcon } from '@/src/components/ui/AppIcon';
+import { platformShadow } from '@/src/components/ui/shadows';
 import { colors, radius } from '@/src/theme/tokens';
 
 export function ScoreCard() {
@@ -16,11 +18,7 @@ export function ScoreCard() {
 
       <View style={styles.metricRow}>
         <View style={styles.metricCard}>
-          <View style={styles.pulseMark}>
-            <View style={styles.pulseLineA} />
-            <View style={styles.pulseLineB} />
-            <View style={styles.pulseLineC} />
-          </View>
+          <AppIcon color="blue400" name="alignment" size={24} style={styles.metricIcon} weight="semibold" />
           <View>
             <Text style={styles.metricLabel}>Alignment</Text>
             <Text style={styles.metricValue}>78%</Text>
@@ -28,10 +26,7 @@ export function ScoreCard() {
         </View>
 
         <View style={styles.metricCard}>
-          <View style={styles.flameMark}>
-            <View style={styles.flameTop} />
-            <View style={styles.flameBase} />
-          </View>
+          <AppIcon color="warning" name="engagement" size={24} style={styles.metricIcon} weight="semibold" />
           <View>
             <Text style={styles.metricLabel}>Engagement</Text>
             <Text style={styles.metricValue}>High</Text>
@@ -49,11 +44,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: radius.sm,
     backgroundColor: colors.navy950,
-    shadowColor: colors.navy950,
-    shadowOpacity: 0.24,
-    shadowRadius: 18,
-    shadowOffset: { width: 0, height: 9 },
-    elevation: 8,
+    ...platformShadow({
+      color: colors.navy950,
+      opacity: 0.24,
+      radius: 18,
+      offset: { width: 0, height: 9 },
+      elevation: 8,
+    }),
     paddingTop: 20,
   },
   scoreHeading: {
@@ -112,63 +109,10 @@ const styles = StyleSheet.create({
     backgroundColor: colors.navy900,
     paddingHorizontal: 12,
   },
-  pulseMark: {
+  metricIcon: {
     width: 24,
     height: 24,
     marginRight: 10,
-  },
-  pulseLineA: {
-    position: 'absolute',
-    left: 1,
-    top: 11,
-    width: 22,
-    height: 3,
-    borderRadius: 2,
-    backgroundColor: colors.blue400,
-  },
-  pulseLineB: {
-    position: 'absolute',
-    left: 8,
-    top: 3,
-    width: 3,
-    height: 19,
-    borderRadius: 2,
-    backgroundColor: colors.blue400,
-    transform: [{ rotate: '-18deg' }],
-  },
-  pulseLineC: {
-    position: 'absolute',
-    right: 4,
-    top: 7,
-    width: 3,
-    height: 13,
-    borderRadius: 2,
-    backgroundColor: colors.blue400,
-    transform: [{ rotate: '24deg' }],
-  },
-  flameMark: {
-    width: 24,
-    height: 28,
-    marginRight: 10,
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-  },
-  flameTop: {
-    position: 'absolute',
-    top: 2,
-    width: 13,
-    height: 18,
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-    borderBottomLeftRadius: 10,
-    backgroundColor: '#FF7A45',
-    transform: [{ rotate: '-28deg' }],
-  },
-  flameBase: {
-    width: 18,
-    height: 17,
-    borderRadius: 9,
-    backgroundColor: colors.warning,
   },
   metricLabel: {
     color: colors.white,
