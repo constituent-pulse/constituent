@@ -11,3 +11,9 @@ Generic production UI icons must use `src/components/ui/AppIcon.tsx`. `AppIcon` 
 Production UI must not use emojis, improvised text-character symbols, or generic View-built icons. Custom-drawn graphics are permitted only for approved brand marks, such as the Constituent pulse mark, or bespoke data visualizations and illustrations.
 
 When a new reusable icon is needed, add it to the typed `APP_ICON_SYMBOLS` map before using it in a screen.
+
+### Factual Source References
+
+Bill and vote explanation data should represent factual text as `FactualClaim` objects with `sourceRefs`. Source references must distinguish between pending live-data sources and genuine available official sources.
+
+Mock UI may include disabled source actions, but it must not display invented citations, fake URLs, or fabricated official references. Available source references should be added only when the app is connected to real official or nonpartisan source data.

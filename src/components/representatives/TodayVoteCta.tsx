@@ -1,16 +1,22 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { AppIcon } from '@/src/components/ui/AppIcon';
 import { platformShadow } from '@/src/components/ui/shadows';
 import { colors, radius } from '@/src/theme/tokens';
 
 type TodayVoteCtaProps = {
+  onPress?: () => void;
   subtitle: string;
   title: string;
 };
 
-export function TodayVoteCta({ subtitle, title }: TodayVoteCtaProps) {
+export function TodayVoteCta({ onPress, subtitle, title }: TodayVoteCtaProps) {
   return (
-    <View accessibilityLabel={`Today's Vote: ${title}. ${subtitle}`} style={styles.cta}>
+    <Pressable
+      accessibilityLabel={`Today's Vote: ${title}. ${subtitle}`}
+      accessibilityRole="button"
+      onPress={onPress}
+      style={({ pressed }) => [styles.cta, pressed && styles.pressed]}
+    >
       <View style={styles.copy}>
         <Text style={styles.eyebrow}>TODAY&apos;S VOTE</Text>
         <Text style={styles.title}>
@@ -24,7 +30,7 @@ export function TodayVoteCta({ subtitle, title }: TodayVoteCtaProps) {
       <View style={styles.arrowCircle}>
         <AppIcon color="blue500" name="forward/chevron" size={25} weight="bold" />
       </View>
-    </View>
+    </Pressable>
   );
 }
 
@@ -86,5 +92,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 21,
     backgroundColor: colors.white,
+  },
+  pressed: {
+    opacity: 0.86,
   },
 });

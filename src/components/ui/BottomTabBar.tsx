@@ -2,23 +2,29 @@ import { StyleSheet, Text, View } from 'react-native';
 import { AppIcon, type AppIconName } from '@/src/components/ui/AppIcon';
 import { colors } from '@/src/theme/tokens';
 
-const TABS = [
+export type BottomTabItem = {
+  active: boolean;
+  icon: AppIconName;
+  key: string;
+  label: string;
+};
+
+const DEFAULT_TABS = [
   { key: 'home', label: 'Home', icon: 'home', active: true },
   { key: 'votes', label: 'Votes', icon: 'votes', active: false },
   { key: 'score', label: 'Score', icon: 'score', active: false },
   { key: 'activity', label: 'Activity', icon: 'activity', active: false },
   { key: 'profile', label: 'Profile', icon: 'profile', active: false },
-] as const satisfies readonly {
-  active: boolean;
-  icon: AppIconName;
-  key: string;
-  label: string;
-}[];
+] as const satisfies readonly BottomTabItem[];
 
-export function BottomTabBar() {
+type BottomTabBarProps = {
+  items?: readonly BottomTabItem[];
+};
+
+export function BottomTabBar({ items = DEFAULT_TABS }: BottomTabBarProps) {
   return (
     <View accessibilityLabel="Main navigation" style={styles.bar}>
-      {TABS.map((tab) => (
+      {items.map((tab) => (
         <View
           accessibilityLabel={tab.label}
           accessibilityRole="tab"

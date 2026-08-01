@@ -1,19 +1,17 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { VoteBadge } from '@/src/components/ui/VoteBadge';
 import { colors, spacing } from '@/src/theme/tokens';
 import type { VoteSummary } from '@/src/components/representatives/types';
 
 type RepresentativeVoteRowProps = {
   label: 'Latest Vote' | 'Relevant to You';
+  onPress?: () => void;
   vote: VoteSummary;
 };
 
-export function RepresentativeVoteRow({ label, vote }: RepresentativeVoteRowProps) {
-  return (
-    <View
-      accessibilityLabel={`${label}: ${vote.title}, ${vote.position}, ${vote.occurredAt}`}
-      style={styles.row}
-    >
+export function RepresentativeVoteRow({ label, onPress, vote }: RepresentativeVoteRowProps) {
+  const content = (
+    <>
       <View style={styles.labelColumn}>
         <Text style={styles.label}>{label}</Text>
         {vote.topic ? <Text style={styles.topic}>{vote.topic}</Text> : null}
@@ -25,6 +23,28 @@ export function RepresentativeVoteRow({ label, vote }: RepresentativeVoteRowProp
         </Text>
         <Text style={styles.time}>{vote.occurredAt}</Text>
       </View>
+    </>
+  );
+
+  if (onPress) {
+    return (
+      <Pressable
+        accessibilityLabel={`${label}: ${vote.title}, ${vote.position}, ${vote.occurredAt}`}
+        accessibilityRole="button"
+        onPress={onPress}
+        style={({ pressed }) => [styles.row, pressed && styles.pressed]}
+      >
+        {content}
+      </Pressable>
+    );
+  }
+
+  return (
+    <View
+      accessibilityLabel={`${label}: ${vote.title}, ${vote.position}, ${vote.occurredAt}`}
+      style={styles.row}
+    >
+      {content}
     </View>
   );
 }
@@ -70,5 +90,8 @@ const styles = StyleSheet.create({
     fontSize: 11,
     lineHeight: 14,
     fontWeight: '600',
+  },
+  pressed: {
+    opacity: 0.84,
   },
 });

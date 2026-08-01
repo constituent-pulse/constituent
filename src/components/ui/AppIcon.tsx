@@ -1,6 +1,6 @@
-import type { ColorValue, StyleProp, ViewStyle } from 'react-native';
+import type { StyleProp, ViewStyle } from 'react-native';
 import { StyleSheet, View } from 'react-native';
-import type { AndroidSymbol, SFSymbol, SymbolWeight } from 'expo-symbols';
+import type { SymbolWeight } from 'expo-symbols';
 import { SymbolView } from 'expo-symbols';
 import bold from 'expo-symbols/androidWeights/bold';
 import light from 'expo-symbols/androidWeights/light';
@@ -10,12 +10,71 @@ import semiBold from 'expo-symbols/androidWeights/semiBold';
 import { colors } from '@/src/theme/tokens';
 
 type PlatformSymbolNames = {
-  ios: SFSymbol;
-  android: AndroidSymbol;
-  web: AndroidSymbol;
+  android: string;
+  ios: string;
+  web: string;
 };
 
-export const APP_ICON_SYMBOLS = {
+export type AppIconName =
+  | 'home'
+  | 'votes'
+  | 'alignment'
+  | 'engagement'
+  | 'activity'
+  | 'profile'
+  | 'notifications'
+  | 'representatives'
+  | 'latest vote'
+  | 'relevant to you'
+  | 'impact'
+  | 'score'
+  | 'back'
+  | 'forward/chevron'
+  | 'email'
+  | 'ZIP/location'
+  | 'privacy/security'
+  | 'check'
+  | 'information'
+  | 'healthcare'
+  | 'economy'
+  | 'education'
+  | 'veterans'
+  | 'jobs'
+  | 'immigration'
+  | 'national security'
+  | 'public safety'
+  | 'environment'
+  | 'infrastructure'
+  | 'technology'
+  | 'small business'
+  | 'housing'
+  | 'against'
+  | 'family'
+  | 'community'
+  | 'wallet'
+  | 'bookmark'
+  | 'share'
+  | 'timer'
+  | 'bill'
+  | 'provisions'
+  | 'worth knowing'
+  | 'programs'
+  | 'expiring'
+  | 'complexity'
+  | 'read source'
+  | 'official text'
+  | 'official summary'
+  | 'roll call'
+  | 'sponsor'
+  | 'analysis'
+  | 'external source'
+  | 'support'
+  | 'oppose'
+  | 'question'
+  | 'committee'
+  | 'president';
+
+export const APP_ICON_SYMBOLS: Record<AppIconName, PlatformSymbolNames> = {
   home: { ios: 'house.fill', android: 'home', web: 'home' },
   votes: { ios: 'doc.text.fill', android: 'how_to_vote', web: 'how_to_vote' },
   alignment: { ios: 'target', android: 'target', web: 'target' },
@@ -100,11 +159,47 @@ export const APP_ICON_SYMBOLS = {
     android: 'account_balance_wallet',
     web: 'account_balance_wallet',
   },
-} as const satisfies Record<string, PlatformSymbolNames>;
+  bookmark: { ios: 'bookmark', android: 'bookmark', web: 'bookmark' },
+  share: { ios: 'square.and.arrow.up', android: 'ios_share', web: 'ios_share' },
+  timer: { ios: 'timer', android: 'timer', web: 'timer' },
+  bill: { ios: 'doc.text.fill', android: 'article', web: 'article' },
+  provisions: {
+    ios: 'list.bullet',
+    android: 'format_list_bulleted',
+    web: 'format_list_bulleted',
+  },
+  'worth knowing': {
+    ios: 'magnifyingglass',
+    android: 'visibility',
+    web: 'visibility',
+  },
+  programs: {
+    ios: 'briefcase.fill',
+    android: 'business_center',
+    web: 'business_center',
+  },
+  expiring: { ios: 'clock.fill', android: 'schedule', web: 'schedule' },
+  complexity: { ios: 'chart.bar.xaxis', android: 'bar_chart', web: 'bar_chart' },
+  'read source': { ios: 'book.fill', android: 'menu_book', web: 'menu_book' },
+  'official text': { ios: 'doc.text', android: 'article', web: 'article' },
+  'official summary': { ios: 'doc.text.magnifyingglass', android: 'summarize', web: 'summarize' },
+  'roll call': { ios: 'checklist', android: 'how_to_vote', web: 'how_to_vote' },
+  sponsor: { ios: 'person.text.rectangle', android: 'badge', web: 'badge' },
+  analysis: { ios: 'chart.line.uptrend.xyaxis', android: 'analytics', web: 'analytics' },
+  'external source': {
+    ios: 'arrow.up.right.square',
+    android: 'open_in_new',
+    web: 'open_in_new',
+  },
+  support: { ios: 'hand.thumbsup', android: 'thumb_up', web: 'thumb_up' },
+  oppose: { ios: 'hand.thumbsdown', android: 'thumb_down', web: 'thumb_down' },
+  question: { ios: 'questionmark.circle', android: 'help', web: 'help' },
+  committee: { ios: 'person.3.fill', android: 'groups', web: 'groups' },
+  president: { ios: 'flag.fill', android: 'flag', web: 'flag' },
+};
 
-export type AppIconName = keyof typeof APP_ICON_SYMBOLS;
 export type AppIconWeight = 'light' | 'regular' | 'medium' | 'semibold' | 'bold';
-export type AppIconColor = keyof typeof colors | ColorValue;
+export type AppIconColor = keyof typeof colors | string;
 
 type AppIconProps = {
   accessibilityLabel?: string;
@@ -150,7 +245,7 @@ export function AppIcon({
     >
       <SymbolView
         fallback={<IconFallback color={iconColor} size={size} />}
-        name={APP_ICON_SYMBOLS[name]}
+        name={APP_ICON_SYMBOLS[name] as never}
         resizeMode="scaleAspectFit"
         size={size}
         tintColor={iconColor}
@@ -163,7 +258,7 @@ export function AppIcon({
   );
 }
 
-function IconFallback({ color, size }: { color: ColorValue; size: number }) {
+function IconFallback({ color, size }: { color: string; size: number }) {
   return (
     <View
       accessibilityLabel="Missing icon fallback"
@@ -192,7 +287,7 @@ function IconFallback({ color, size }: { color: ColorValue; size: number }) {
   );
 }
 
-function resolveColor(color: AppIconColor): ColorValue {
+function resolveColor(color: AppIconColor): string {
   if (typeof color === 'string' && color in colors) {
     return colors[color as keyof typeof colors];
   }

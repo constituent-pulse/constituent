@@ -9,10 +9,11 @@ import { colors, spacing } from '@/src/theme/tokens';
 import { ImpactPreview } from '@/src/components/representatives/ImpactPreview';
 
 type RepresentativeCardProps = {
+  onOpenVoteDetails?: () => void;
   representative: Representative;
 };
 
-export function RepresentativeCard({ representative }: RepresentativeCardProps) {
+export function RepresentativeCard({ onOpenVoteDetails, representative }: RepresentativeCardProps) {
   return (
     <GlassCard
       accessibilityLabel={`${representative.name}, ${representative.role}, ${representative.region}`}
@@ -39,9 +40,17 @@ export function RepresentativeCard({ representative }: RepresentativeCardProps) 
       </View>
 
       <View style={styles.divider} />
-      <RepresentativeVoteRow label="Latest Vote" vote={representative.latestVote} />
+      <RepresentativeVoteRow
+        label="Latest Vote"
+        onPress={onOpenVoteDetails}
+        vote={representative.latestVote}
+      />
       <View style={styles.thinDivider} />
-      <RepresentativeVoteRow label="Relevant to You" vote={representative.relevantVote} />
+      <RepresentativeVoteRow
+        label="Relevant to You"
+        onPress={onOpenVoteDetails}
+        vote={representative.relevantVote}
+      />
       <View style={styles.thinDivider} />
       <ImpactPreview impactPreview={representative.impactPreview} />
     </GlassCard>

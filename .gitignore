@@ -16,6 +16,9 @@ expo-env.d.ts
 # macOS
 .DS_Store
 
+# Editor-local settings
+.vscode/
+
 # Logs
 npm-debug.log*
 yarn-debug.log*

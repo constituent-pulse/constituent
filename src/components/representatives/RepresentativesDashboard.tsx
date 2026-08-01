@@ -1,4 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
+import { useRouter } from 'expo-router';
 import { ScrollView, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import {
@@ -15,10 +16,15 @@ import { colors, spacing } from '@/src/theme/tokens';
 const FIXED_FOOTER_HEIGHT = 176;
 
 export function RepresentativesDashboard() {
+  const router = useRouter();
   const insets = useSafeAreaInsets();
   const { width } = useWindowDimensions();
   const contentMaxWidth = width >= 768 ? 520 : 640;
   const footerBottomPadding = Math.max(insets.bottom, 10);
+
+  function openVoteDetails() {
+    router.push('/vote-details' as never);
+  }
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -49,14 +55,22 @@ export function RepresentativesDashboard() {
 
         <View style={styles.cards}>
           {REPRESENTATIVES.map((representative) => (
-            <RepresentativeCard key={representative.id} representative={representative} />
+            <RepresentativeCard
+              key={representative.id}
+              onOpenVoteDetails={openVoteDetails}
+              representative={representative}
+            />
           ))}
         </View>
       </ScrollView>
 
       <View style={[styles.fixedFooter, { paddingBottom: footerBottomPadding }]}>
         <View style={[styles.footerInner, { maxWidth: contentMaxWidth }]}>
-          <TodayVoteCta subtitle={TODAY_VOTE.subtitle} title={TODAY_VOTE.title} />
+          <TodayVoteCta
+            onPress={openVoteDetails}
+            subtitle={TODAY_VOTE.subtitle}
+            title={TODAY_VOTE.title}
+          />
           <BottomTabBar />
         </View>
       </View>
