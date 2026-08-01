@@ -1,0 +1,38 @@
+{
+  "expo": {
+    "name": "Constituent",
+    "slug": "constituent",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "scheme": "constituent",
+    "userInterfaceStyle": "dark",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "org.constituentpulse.constituent"
+    },
+    "android": {
+      "package": "org.constituentpulse.constituent",
+      "adaptiveIcon": {
+        "backgroundColor": "#071827"
+      },
+      "edgeToEdgeEnabled": true
+    },
+    "web": {
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#071827",
+          "imageWidth": 160
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
