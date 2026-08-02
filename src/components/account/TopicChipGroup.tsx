@@ -1,17 +1,19 @@
+import { useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { AppIcon, type AppIconName } from '@/src/components/ui/AppIcon';
 import { colors, radius, spacing } from '@/src/theme/tokens';
 
 export const ACCOUNT_TOPICS = [
-  'Economy',
-  'Taxes',
   'Healthcare',
-  'Education',
+  'Economy',
   'Veterans',
-  'Jobs',
+  'Education',
+  'Environment',
   'Immigration',
+  'Taxes',
+  'Jobs',
   'National Security',
   'Public Safety',
-  'Environment',
   'Infrastructure',
   'Technology',
   'Small Business',
@@ -26,22 +28,55 @@ type TopicChipGroupProps = {
   selectedTopics: AccountTopic[];
 };
 
+const INITIAL_VISIBLE_TOPICS = 6;
+
+const TOPIC_ICONS: Record<AccountTopic, AppIconName> = {
+  Healthcare: 'healthcare',
+  Economy: 'economy',
+  Veterans: 'veterans',
+  Education: 'education',
+  Environment: 'environment',
+  Immigration: 'immigration',
+  Taxes: 'economy',
+  Jobs: 'jobs',
+  'National Security': 'national security',
+  'Public Safety': 'public safety',
+  Infrastructure: 'infrastructure',
+  Technology: 'technology',
+  'Small Business': 'small business',
+  Housing: 'housing',
+};
+
+const TOPIC_COLORS: Record<AccountTopic, keyof typeof colors> = {
+  Healthcare: 'danger',
+  Economy: 'blue500',
+  Veterans: 'blue500',
+  Education: 'blue500',
+  Environment: 'success',
+  Immigration: 'blue500',
+  Taxes: 'warning',
+  Jobs: 'navy950',
+  'National Security': 'navy950',
+  'Public Safety': 'danger',
+  Infrastructure: 'warning',
+  Technology: 'blue500',
+  'Small Business': 'success',
+  Housing: 'blue500',
+};
+
 export function TopicChipGroup({
   maxSelections,
   onToggleTopic,
   selectedTopics,
 }: TopicChipGroupProps) {
+  const [isExpanded, setIsExpanded] = useState(false);
   const isLimitReached = selectedTopics.length === maxSelections;
+  const visibleTopics = isExpanded ? ACCOUNT_TOPICS : ACCOUNT_TOPICS.slice(0, INITIAL_VISIBLE_TOPICS);
 
   return (
     <View style={styles.section}>
-      <View style={styles.labelRow}>
-        <Text style={styles.label}>What topics matter most to you? (Optional)</Text>
-        {isLimitReached ? <Text style={styles.limitText}>5 selected</Text> : null}
-      </View>
-
-      <View style={styles.chipWrap}>
-        {ACCOUNT_TOPICS.map((topic) => {
+      <View style={styles.grid}>
+        {visibleTopics.map((topic) => {
           const isSelected = selectedTopics.includes(topic);
           const isDisabled = !isSelected && isLimitReached;
 
@@ -50,20 +85,46 @@ export function TopicChipGroup({
               accessibilityLabel={`${topic} topic${isSelected ? ', selected' : ''}`}
               accessibilityRole="button"
               accessibilityState={{ disabled: isDisabled, selected: isSelected }}
+              disabled={isDisabled}
               key={topic}
               onPress={() => onToggleTopic(topic)}
               style={({ pressed }) => [
-                styles.chip,
-                isSelected ? styles.chipSelected : styles.chipUnselected,
+                styles.topicTile,
+                isSelected ? styles.topicTileSelected : styles.topicTileUnselected,
+                isDisabled ? styles.topicTileDisabled : null,
                 pressed && styles.pressed,
               ]}
             >
-              <Text style={[styles.chipText, isSelected ? styles.chipTextSelected : null]}>
+              <View style={[styles.iconTile, isSelected ? styles.iconTileSelected : null]}>
+                <AppIcon
+                  color={isSelected ? 'white' : TOPIC_COLORS[topic]}
+                  name={TOPIC_ICONS[topic]}
+                  size={20}
+                  weight="medium"
+                />
+              </View>
+              <Text style={[styles.topicText, isSelected ? styles.topicTextSelected : null]}>
                 {topic}
               </Text>
             </Pressable>
           );
         })}
+      </View>
+
+      <View style={styles.metaRow}>
+        <Pressable
+          accessibilityLabel={isExpanded ? 'Show fewer topics' : 'Show more topics'}
+          accessibilityRole="button"
+          onPress={() => setIsExpanded((currentValue) => !currentValue)}
+          style={({ pressed }) => [styles.showMoreButton, pressed && styles.pressed]}
+        >
+          <Text style={styles.showMoreText}>{isExpanded ? 'Show Less' : 'Show More'}</Text>
+          <AppIcon color="blue500" name="forward/chevron" size={15} weight="semibold" />
+        </Pressable>
+
+        <Text accessibilityLiveRegion="polite" style={styles.limitText}>
+          {selectedTopics.length}/{maxSelections} selected
+        </Text>
       </View>
     </View>
   );
@@ -72,60 +133,82 @@ export function TopicChipGroup({
 const styles = StyleSheet.create({
   section: {
     width: '100%',
-    marginTop: spacing.xl,
+    marginTop: spacing.lg,
   },
-  labelRow: {
-    minHeight: 24,
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    justifyContent: 'space-between',
-    gap: spacing.md,
-  },
-  label: {
-    flex: 1,
-    color: colors.navy950,
-    fontSize: 16,
-    lineHeight: 22,
-    fontWeight: '800',
-  },
-  limitText: {
-    color: colors.blue500,
-    fontSize: 13,
-    lineHeight: 20,
-    fontWeight: '800',
-  },
-  chipWrap: {
+  grid: {
+    width: '100%',
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: spacing.sm,
-    marginTop: 14,
   },
-  chip: {
-    minHeight: 38,
+  topicTile: {
+    width: '48%',
+    minHeight: 50,
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
     borderWidth: 1,
-    borderRadius: radius.pill,
-    paddingHorizontal: spacing.md,
+    borderRadius: radius.sm,
+    paddingHorizontal: spacing.sm,
+    paddingVertical: spacing.sm,
   },
-  chipSelected: {
+  topicTileSelected: {
     borderColor: colors.blue500,
     backgroundColor: 'rgba(45, 125, 255, 0.08)',
   },
-  chipUnselected: {
-    borderColor: colors.gray300,
+  topicTileUnselected: {
+    borderColor: colors.gray200,
     backgroundColor: colors.white,
   },
-  chipText: {
-    color: colors.navy950,
-    fontSize: 14,
-    lineHeight: 18,
-    fontWeight: '700',
+  topicTileDisabled: {
+    opacity: 0.52,
   },
-  chipTextSelected: {
+  iconTile: {
+    width: 28,
+    height: 28,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 9,
+    backgroundColor: colors.gray50,
+    marginRight: spacing.sm,
+  },
+  iconTileSelected: {
+    backgroundColor: colors.blue500,
+  },
+  topicText: {
+    flex: 1,
+    color: colors.navy950,
+    fontSize: 13,
+    lineHeight: 17,
+    fontWeight: '800',
+  },
+  topicTextSelected: {
     color: colors.blue500,
   },
+  metaRow: {
+    minHeight: 32,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: spacing.md,
+  },
+  showMoreButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.xs,
+  },
+  showMoreText: {
+    color: colors.blue500,
+    fontSize: 13,
+    lineHeight: 18,
+    fontWeight: '800',
+  },
+  limitText: {
+    color: colors.textSecondary,
+    fontSize: 13,
+    lineHeight: 18,
+    fontWeight: '800',
+  },
   pressed: {
-    opacity: 0.78,
+    opacity: 0.76,
   },
 });

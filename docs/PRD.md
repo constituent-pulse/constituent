@@ -1,14 +1,23 @@
 # PRD
 
-## UI-003 Account Creation
+## UI-006 Integrated Onboarding
 
-The approved account-creation flow is a local, two-step mobile UI.
+The approved onboarding flow is a single local, mobile-first experience that begins after the splash screen. It replaces the separate UI-002 onboarding and UI-003 account-creation handoff.
 
-Step 1 collects email and ZIP code to help identify representatives. Email is required and must be reasonably formatted. ZIP code is required and must be exactly 5 digits. Validation stays local.
+`/` remains the splash route and stays visible for approximately 3.25 seconds before routing to `/onboarding`. The splash subtitle is "Understand Every Vote."
 
-Step 2 lets users optionally choose up to 5 topics that matter to them, toggle notification preference, and continue. Topic preferences may personalize alerts and legislation explanations, but must not change facts, scores, or political framing.
+`/onboarding` owns the full 4-step flow:
 
-The flow must not include authentication, backend calls, persistence, analytics, party affiliation, ideology, political profiling, or a display-name field. Skip and final Continue route to `/representatives`.
+1. Understand Every Vote: collects Email and ZIP code.
+2. Choose the issues that matter to you: lets users optionally select up to 5 topics.
+3. Representative Score: explains that the score belongs to elected officials, not the user, without inventing a final formula.
+4. Vote Transparency: explains representative vote position, plain-language summaries, real-world impact, and source transparency.
+
+Onboarding steps must not auto-advance. Continue advances internal step state only. Step 1 validates locally: Email is required and must be reasonably formatted; ZIP code is required and must be exactly 5 digits. Errors appear after Continue and clear as the user edits. Steps 2-4 do not block progress.
+
+Final Continue routes with `router.replace('/representatives')`. `/account` remains only as a stale-link redirect to `/onboarding` and must not duplicate signup logic.
+
+The flow must not include authentication, backend calls, persistence, analytics, party affiliation, ideology fields, political profiling, display-name fields, notification preference collection, or account setup branching. Email, ZIP, and local topic selection are the only collected inputs.
 
 ## UI-004 Representatives Dashboard
 

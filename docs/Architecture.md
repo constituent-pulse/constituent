@@ -4,6 +4,16 @@
 
 Constituent uses the tokens in `src/theme/tokens.ts` for approved colors, spacing, radii, and shadows. New UI should reuse these tokens and existing shared components before introducing another primitive.
 
+## Route Ownership
+
+`/` owns the timed splash screen and routes to `/onboarding`.
+
+`/onboarding` owns the complete integrated onboarding flow, including Email, ZIP code, local validation, topic preferences, Representative Score education, and Vote Transparency education. It uses local React state only and does not persist account, topic, or validation data.
+
+`/account` is retained only as a stale-link redirect to `/onboarding`. It must not contain duplicate signup, account setup, topic selection, notification preference, persistence, or backend behavior.
+
+`/representatives` remains the first dashboard route after onboarding. `/vote-details` remains the vote-detail route reached from the dashboard.
+
 ### Icons
 
 Generic production UI icons must use `src/components/ui/AppIcon.tsx`. `AppIcon` wraps `SymbolView` from `expo-symbols`, keeps sizing consistent, and requires explicit iOS, Android, and web symbol names for each approved app icon.

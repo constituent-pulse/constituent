@@ -12,7 +12,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { PulseLogo } from '@/src/components/PulseLogo';
 import { colors, spacing } from '@/src/theme/tokens';
 
-const SPLASH_DURATION_MS = 2600;
+const SPLASH_DURATION_MS = 3250;
 const USE_NATIVE_DRIVER = Platform.OS !== 'web';
 
 export default function SplashScreen() {
@@ -76,7 +76,7 @@ export default function SplashScreen() {
         <PulseLogo />
 
         <Text style={styles.brand}>Constituent</Text>
-        <Text style={styles.tagline}>Your voice. Their vote.</Text>
+        <Text style={styles.tagline}>Understand Every Vote.</Text>
         <Text style={styles.description}>
           Understand government. See how it affects you.{`\n`}Know how you’re represented.
         </Text>
