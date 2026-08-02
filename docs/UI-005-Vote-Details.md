@@ -1,5 +1,7 @@
 # UI-005 Vote Details
 
+> Status: Superseded by UI-007 Legislative Intelligence. This document is retained as a historical record. `/vote-details` now renders the UI-007 composition documented in `docs/UI-007-Legislative-Intelligence.md`.
+
 ## Purpose
 
 UI-005 explains one bill or vote in plain language before the user chooses a local response. The screen is nonpartisan and uses static typed mock data only. It does not add persistence, aggregation, backend integration, live congressional data, representative detail navigation, or the UI-006 vote-results screen.

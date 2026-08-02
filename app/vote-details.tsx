@@ -1,6 +1,6 @@
-import { MOCK_BILL_DETAILS } from '@/src/components/bill-detail/billDetailsData';
-import { VoteDetailsScreen } from '@/src/components/bill-detail/VoteDetailsScreen';
+import { LegislativeIntelligenceScreen } from '@/src/components/bill-detail/LegislativeIntelligenceScreen';
+import { MOCK_LEGISLATIVE_INTELLIGENCE } from '@/src/components/bill-detail/legislativeIntelligenceData';
 
 export default function VoteDetailsRoute() {
-  return <VoteDetailsScreen bill={MOCK_BILL_DETAILS} />;
+  return <LegislativeIntelligenceScreen details={MOCK_LEGISLATIVE_INTELLIGENCE} />;
 }

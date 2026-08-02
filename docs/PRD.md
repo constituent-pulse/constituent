@@ -31,7 +31,34 @@ Each representative card must show the representative photo, name, role, region,
 
 UI-004 must not include party affiliation, party colors, party badges, ideology fields, star ratings, live congressional data, score breakdown interactions, or detail navigation. The Representative Score can later open into a transparent score breakdown after that interaction is approved.
 
-## UI-005 Vote Details
+## UI-005 Vote Details (Superseded)
+
+UI-005 has been superseded by UI-007 Legislative Intelligence. Its historical requirements remain documented in `docs/UI-005-Vote-Details.md`, but `/vote-details` now renders UI-007.
+
+## UI-007 Legislative Intelligence
+
+UI-007 is the primary bill-understanding experience at `/vote-details`. It provides sourced context without recommending a political conclusion. Its approved section order is:
+
+1. Bill Header.
+2. 30-Second Summary.
+3. At a Glance.
+4. Potential Benefits.
+5. Potential Drawbacks.
+6. Who Is Affected.
+7. Worth Knowing.
+8. Campaign Funding Context.
+9. Questions Worth Asking.
+10. Official Sources.
+
+Potential Benefits and Potential Drawbacks must receive equal visual hierarchy, comparable visible item counts, cautious language, and the same sourcing requirements. Who Is Affected must use factual group-based categories without inferring political identity or preference. Worth Knowing must surface objective, less-obvious provisions without implying secrecy or wrongdoing.
+
+Campaign Funding Context is representative-specific and must show its reporting period and source status. Sample campaign figures and organizations must be explicitly labeled fictional sample data. Campaign contributions must never be described as causing a vote, proving influence, or demonstrating corruption. The disclaimer "Campaign contributions do not prove how someone voted. Contribution patterns provide context, not proof of influence." must remain visible.
+
+Questions Worth Asking must be neutral and must not assume wrongdoing, motive, or an unsupported premise. Generic prompts may appear without answers. Bill-specific prompts require sourced support for their premise.
+
+Official source actions remain disabled and labeled "Source coming with live data" until genuine citations and URLs are available. UI-007 uses typed mock data only and does not add backend behavior, live APIs, persistence, notifications, following, party affiliation, or ideological labels.
+
+### Historical UI-005 Requirements
 
 The approved vote-details screen lives at `/vote-details` and explains one mock bill using static typed data. It includes a bill status tracker, 30-Second Summary, Bill Complexity, What's Inside metrics, How Does This Affect Me? groups, Worth Knowing provisions, Read It Yourself source actions, and a local “How would you vote?” response card.
 

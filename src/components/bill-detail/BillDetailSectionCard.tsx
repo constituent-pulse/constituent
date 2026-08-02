@@ -10,6 +10,7 @@ import { billDetailTones, type BillDetailTone } from '@/src/components/bill-deta
 type BillDetailSectionCardProps = {
   accessibilityLabel?: string;
   children: ReactNode;
+  headerAccessory?: ReactNode;
   icon: AppIconName;
   showChevron?: boolean;
   style?: StyleProp<ViewStyle>;
@@ -21,6 +22,7 @@ type BillDetailSectionCardProps = {
 export function BillDetailSectionCard({
   accessibilityLabel,
   children,
+  headerAccessory,
   icon,
   showChevron = false,
   style,
@@ -37,14 +39,15 @@ export function BillDetailSectionCard({
           backgroundColor={toneColors.fill}
           borderColor={toneColors.border}
           icon={icon}
-          size={48}
+          size={32}
         />
         <View style={styles.copy}>
           <Text style={styles.title}>{title}</Text>
           {subtitle ? <Text style={styles.subtitle}>{subtitle}</Text> : null}
         </View>
+        {headerAccessory}
         {showChevron ? (
-          <AppIcon color="gray200" name="forward/chevron" size={24} weight="semibold" />
+          <AppIcon color="gray200" name="forward/chevron" size={20} weight="semibold" />
         ) : null}
       </View>
       {children}
@@ -54,7 +57,7 @@ export function BillDetailSectionCard({
 
 const styles = StyleSheet.create({
   card: {
-    padding: spacing.md,
+    padding: 12,
     marginBottom: 10,
   },
   header: {
@@ -64,19 +67,19 @@ const styles = StyleSheet.create({
   copy: {
     flex: 1,
     minWidth: 0,
-    marginLeft: spacing.md,
+    marginLeft: 10,
   },
   title: {
     color: colors.white,
-    fontSize: 21,
-    lineHeight: 25,
+    fontSize: 16,
+    lineHeight: 20,
     fontWeight: '800',
   },
   subtitle: {
     marginTop: 3,
     color: colors.gray200,
-    fontSize: 14,
-    lineHeight: 19,
+    fontSize: 12,
+    lineHeight: 16,
     fontWeight: '500',
   },
 });

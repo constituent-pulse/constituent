@@ -2,54 +2,68 @@ import type { AppIconName } from '@/src/components/ui/AppIcon';
 
 export type SourceType =
   | 'bill_text'
-  | 'official_summary'
-  | 'roll_call'
-  | 'sponsor'
+  | 'congress'
+  | 'crs'
   | 'cbo'
-  | 'crs';
+  | 'roll_call'
+  | 'campaign_finance';
 
-export type SourceReference =
-  | {
-      id: string;
-      icon: AppIconName;
-      label: string;
-      sourceType: SourceType;
-      status: 'pendingLiveData';
-    }
-  | {
-      citation: string;
-      icon: AppIconName;
-      id: string;
-      label: string;
-      sourceType: SourceType;
-      status: 'available';
-      url: string;
-    };
+type SourceReferenceBase = {
+  description: string;
+  icon: AppIconName;
+  id: string;
+  label: string;
+  sourceType: SourceType;
+};
+
+export type SourceReference = SourceReferenceBase &
+  (
+    | {
+        status: 'pendingLiveData';
+      }
+    | {
+        citation: string;
+        status: 'available';
+        url: string;
+      }
+  );
 
 export type FactualClaim = {
   sourceRefs: string[];
   text: string;
 };
 
-export type BillStatusStep = {
+export type BillIdentity = {
+  billNumber: string;
+  congress: string;
+  currentStatus: FactualClaim;
   dateLabel: string;
+  id: string;
+  officialTitle: string;
+  sourceRefs: string[];
+  sponsor: FactualClaim;
+};
+
+export type SummaryParagraphs = readonly [FactualClaim, FactualClaim?, FactualClaim?];
+
+export type AtAGlanceIndicator = {
   icon: AppIconName;
   id: string;
   label: string;
   sourceRefs: string[];
-  status: 'completed' | 'current' | 'upcoming';
+  supportingLabel?: string;
+  tone: 'blue' | 'green' | 'orange' | 'purple' | 'teal' | 'yellow';
+  value?: string;
 };
 
-export type BillInsideMetric = {
-  count: number;
+export type TradeoffItem = {
+  explanation: FactualClaim;
   icon: AppIconName;
   id: string;
-  label: string;
-  sourceRefs: string[];
-  tone: 'blue' | 'green' | 'orange' | 'purple' | 'teal';
+  title: string;
 };
 
-export type ImpactGroup = {
+export type AffectedGroup = {
   claim: FactualClaim;
   icon: AppIconName;
   id: string;
@@ -61,41 +75,51 @@ export type WorthKnowingItem = {
   explanation: FactualClaim;
   id: string;
   provisionTitle: string;
-  viewInBillSourceRef?: string;
+  sectionReference: FactualClaim;
   whyItMatters: FactualClaim;
 };
 
-export type ComplexityInputs = {
-  amendmentCount: number;
-  pageCount: number;
-  programsCreated: number;
-  programsExpired: number;
-  programsExtended: number;
-  sectionCount: number;
-  sourceRefs: string[];
-};
-
-export type BillComplexity = {
-  barSegments: number;
-  filledSegments: number;
-  inputs: ComplexityInputs;
-  label: string;
-  readingTimeLabel: string;
-};
-
-export type BillDetails = {
-  billNumber: string;
-  complexity: BillComplexity;
-  congress: string;
+export type CampaignIndustry = {
   id: string;
-  impactGroups: ImpactGroup[];
-  insideMetrics: BillInsideMetric[];
-  officialSources: SourceReference[];
+  label: string;
+  percentage: number;
   sourceRefs: string[];
-  statusSteps: BillStatusStep[];
-  summary: FactualClaim;
-  title: string;
+  tone: 'blue' | 'orange' | 'purple' | 'teal' | 'yellow';
+};
+
+export type CampaignOrganization = {
+  amountLabel: string;
+  id: string;
+  name: string;
+  sourceRefs: string[];
+};
+
+export type CampaignFundingContext = {
+  dataStatus: 'fictionalSample';
+  disclaimer: string;
+  industries: CampaignIndustry[];
+  organizations: CampaignOrganization[];
+  reportingPeriod: string;
+  representativeName: string;
+  sourceRefs: string[];
+};
+
+export type QuestionWorthAsking = {
+  id: string;
+  prompt: string;
+  supportingClaim?: FactualClaim;
+};
+
+export type LegislativeIntelligenceDetails = {
+  affectedGroups: AffectedGroup[];
+  atAGlance: AtAGlanceIndicator[];
+  bill: BillIdentity;
+  campaignFunding: CampaignFundingContext;
+  lastUpdatedLabel: string;
+  officialSources: SourceReference[];
+  potentialBenefits: readonly [TradeoffItem, ...TradeoffItem[]];
+  potentialDrawbacks: readonly [TradeoffItem, ...TradeoffItem[]];
+  questionsWorthAsking: QuestionWorthAsking[];
+  summary: SummaryParagraphs;
   worthKnowing: WorthKnowingItem[];
 };
-
-export type VoteResponse = 'support' | 'oppose' | 'needMoreInformation';
