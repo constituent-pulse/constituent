@@ -28,7 +28,7 @@ type TopicChipGroupProps = {
   selectedTopics: AccountTopic[];
 };
 
-const INITIAL_VISIBLE_TOPICS = 6;
+const INITIAL_VISIBLE_TOPICS = 8;
 
 const TOPIC_ICONS: Record<AccountTopic, AppIconName> = {
   Healthcare: 'healthcare',
@@ -107,7 +107,7 @@ export function TopicChipGroup({
                 <AppIcon
                   color={isSelected ? 'white' : TOPIC_COLORS[topic]}
                   name={TOPIC_ICONS[topic]}
-                  size={20}
+                  size={18}
                   weight="medium"
                 />
               </View>
@@ -143,7 +143,7 @@ export function TopicChipGroup({
 const styles = StyleSheet.create({
   section: {
     width: '100%',
-    marginTop: spacing.md,
+    marginTop: 14,
   },
   grid: {
     width: '100%',
@@ -153,13 +153,13 @@ const styles = StyleSheet.create({
   },
   topicTile: {
     width: '48.5%',
-    minHeight: 46,
+    minHeight: 44,
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
     borderRadius: radius.sm,
     paddingHorizontal: spacing.sm,
-    paddingVertical: spacing.sm,
+    paddingVertical: 7,
   },
   topicTileSelected: {
     borderColor: colors.blue500,
@@ -173,8 +173,8 @@ const styles = StyleSheet.create({
     opacity: 0.52,
   },
   iconTile: {
-    width: 26,
-    height: 26,
+    width: 24,
+    height: 24,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 9,
@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginTop: spacing.sm,
+    marginTop: 6,
   },
   showMoreButton: {
     minHeight: 44,

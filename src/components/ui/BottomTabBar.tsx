@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { AppIcon, type AppIconName } from '@/src/components/ui/AppIcon';
-import { colors } from '@/src/theme/tokens';
+import { colors, spacing } from '@/src/theme/tokens';
 
 export type BottomTabItem = {
   active: boolean;
@@ -38,7 +38,14 @@ export function BottomTabBar({ items = DEFAULT_TABS }: BottomTabBarProps) {
             size={28}
             weight={tab.active ? 'bold' : 'regular'}
           />
-          <Text style={[styles.label, tab.active && styles.labelActive]}>{tab.label}</Text>
+          <Text
+            adjustsFontSizeToFit
+            minimumFontScale={0.82}
+            numberOfLines={1}
+            style={[styles.label, tab.active && styles.labelActive]}
+          >
+            {tab.label}
+          </Text>
         </View>
       ))}
     </View>
@@ -48,16 +55,20 @@ export function BottomTabBar({ items = DEFAULT_TABS }: BottomTabBarProps) {
 const styles = StyleSheet.create({
   bar: {
     height: 82,
+    width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-around',
+    justifyContent: 'center',
     borderTopWidth: 1,
     borderTopColor: 'rgba(156, 192, 255, 0.16)',
     backgroundColor: 'rgba(7, 24, 39, 0.96)',
-    paddingHorizontal: 12,
+    paddingHorizontal: spacing.sm,
+    paddingVertical: spacing.sm,
   },
   tab: {
-    width: 60,
+    flex: 1,
+    minWidth: 0,
+    minHeight: 60,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -67,6 +78,7 @@ const styles = StyleSheet.create({
     fontSize: 11,
     lineHeight: 14,
     fontWeight: '600',
+    textAlign: 'center',
   },
   labelActive: {
     color: colors.blue500,

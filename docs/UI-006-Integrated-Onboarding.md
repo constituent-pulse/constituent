@@ -8,7 +8,7 @@ This flow replaces the separate onboarding-to-account transition. It remains loc
 
 ## Route Flow
 
-1. `/` renders the splash screen for approximately 5.5 seconds.
+1. `/` renders the splash screen for approximately 8 seconds.
 2. Splash routes to `/onboarding`.
 3. `/onboarding` renders the complete 4-step integrated flow.
 4. Continue advances internal step state only.
@@ -22,7 +22,7 @@ This flow replaces the separate onboarding-to-account transition. It remains loc
 Includes:
 
 - Headline: "Understand Every Vote"
-- Plain-language onboarding explanation
+- Supporting sentence: "See how votes affect you and how you are represented."
 - Email field
 - ZIP Code field
 - Continue button
@@ -40,6 +40,10 @@ Validation:
 
 ### Step 2: Choose The Issues That Matter To You
 
+Headline: "Choose the issues that matter to you."
+
+Supporting sentence: "Pick up to five topics that matter most to you."
+
 Includes the existing topic preferences and allows up to 5 selected topics.
 
 Topic selection is optional and local-only. Topic preferences may later help prioritize explanations, but must never change facts, Representative Scores, vote positions, sourcing, or political framing.
@@ -48,7 +52,7 @@ Topic selection is optional and local-only. Topic preferences may later help pri
 
 Explains that Representative Score belongs to elected officials, not the user.
 
-The screen may describe high-level accountability signals, but must not invent or imply a final scoring formula. Any future formula must be approved separately and transparent.
+The intro reads "This is an accountability score for your elected officials." The screen may describe high-level accountability signals, but must not invent or imply a final scoring formula. Any future formula must be approved separately and transparent.
 
 ### Step 4: Vote Transparency
 
@@ -88,8 +92,8 @@ State stays in memory for the current route session only. Browser refresh restar
 
 ## Acceptance Criteria
 
-- Splash remains visible for about 5.5 seconds.
-- Splash subtitle reads "Understand Every Vote."
+- Splash remains visible for about 8 seconds.
+- Splash shows "Understand Every Vote.", "See How It Affects You.", and "See How You Are Represented." on separate lines.
 - Splash routes to `/onboarding`.
 - `/onboarding` has exactly 4 integrated steps.
 - Step 1 includes only Email and ZIP Code inputs.

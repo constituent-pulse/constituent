@@ -11,10 +11,10 @@ UI-005 explains one bill or vote in plain language before the user chooses a loc
 - Bill header with bill icon, title, bill number, and Congress label.
 - Bill status tracker.
 - “30-Second Summary” card.
+- “Bill Complexity” card.
 - “What's Inside” metric card.
 - “How Does This Affect Me?” group card.
 - “Worth Knowing” provisions card.
-- “Bill Complexity” card.
 - “Read It Yourself” source-action card.
 - “How would you vote?” local response card.
 - Fixed bottom navigation.

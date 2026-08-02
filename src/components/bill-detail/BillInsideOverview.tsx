@@ -33,7 +33,7 @@ function MetricTile({ metric }: { metric: BillInsideMetric }) {
       accessibilityLabel={`${metric.label}, ${metric.count}`}
       style={[styles.tile, { borderColor: `${tone.border}66` }]}
     >
-      <AppIcon color={tone.text} name={metric.icon} size={34} weight="regular" />
+      <AppIcon color={tone.text} name={metric.icon} size={30} weight="regular" />
       <Text style={styles.metricLabel}>{metric.label}</Text>
       <View style={[styles.countPill, { backgroundColor: tone.fill }]}>
         <Text style={styles.countText}>{metric.count}</Text>
@@ -47,28 +47,28 @@ const styles = StyleSheet.create({
     paddingTop: spacing.md,
   },
   tile: {
-    width: 132,
-    minHeight: 106,
+    width: 118,
+    minHeight: 96,
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
     borderRadius: radius.sm,
     backgroundColor: 'rgba(16, 42, 72, 0.64)',
-    paddingHorizontal: spacing.sm,
+    paddingHorizontal: 7,
     marginRight: spacing.sm,
   },
   metricLabel: {
-    minHeight: 34,
-    marginTop: spacing.sm,
+    minHeight: 30,
+    marginTop: 7,
     color: colors.white,
-    fontSize: 13,
-    lineHeight: 17,
+    fontSize: 12,
+    lineHeight: 15,
     fontWeight: '600',
     textAlign: 'center',
   },
   countPill: {
-    minWidth: 30,
-    height: 24,
+    minWidth: 28,
+    height: 22,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: radius.pill,
@@ -77,8 +77,8 @@ const styles = StyleSheet.create({
   },
   countText: {
     color: colors.white,
-    fontSize: 13,
-    lineHeight: 16,
+    fontSize: 12,
+    lineHeight: 15,
     fontWeight: '800',
   },
 });

@@ -4,7 +4,11 @@
 
 The approved onboarding flow is a single local, mobile-first experience that begins after the splash screen. It replaces the separate UI-002 onboarding and UI-003 account-creation handoff.
 
-`/` remains the splash route and stays visible for approximately 5.5 seconds before routing to `/onboarding`. The splash subtitle is "Understand Every Vote."
+`/` remains the splash route and stays visible for approximately 8 seconds before routing to `/onboarding`. The splash shows:
+
+- "Understand Every Vote."
+- "See How It Affects You."
+- "See How You Are Represented."
 
 `/onboarding` owns the full 4-step flow:
 
@@ -29,7 +33,7 @@ UI-004 must not include party affiliation, party colors, party badges, ideology 
 
 ## UI-005 Vote Details
 
-The approved vote-details screen lives at `/vote-details` and explains one mock bill using static typed data. It includes a bill status tracker, 30-Second Summary, What's Inside metrics, How Does This Affect Me? groups, Worth Knowing provisions, Bill Complexity, Read It Yourself source actions, and a local “How would you vote?” response card.
+The approved vote-details screen lives at `/vote-details` and explains one mock bill using static typed data. It includes a bill status tracker, 30-Second Summary, Bill Complexity, What's Inside metrics, How Does This Affect Me? groups, Worth Knowing provisions, Read It Yourself source actions, and a local “How would you vote?” response card.
 
 UI-005 must use the approved copy “Worth Knowing,” “How would you vote?,” “Support,” “Oppose,” and “Need More Information.”
 

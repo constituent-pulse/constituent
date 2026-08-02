@@ -4,9 +4,9 @@ import { platformShadow } from '@/src/components/ui/shadows';
 import { colors, radius, spacing } from '@/src/theme/tokens';
 
 const SCORE_ROWS = [
-  { label: 'Promises', value: 'Public commitments', width: '76%' },
-  { label: 'Votes', value: 'Recorded vote history', width: '68%' },
-  { label: 'Engagement', value: 'Attendance and response', width: '58%' },
+  { label: 'Votes', value: 'Alignment context', width: '76%' },
+  { label: 'Participation', value: 'Public activity', width: '68%' },
+  { label: 'PAC Support', value: 'Context only', width: '58%' },
 ] as const;
 
 type TransparencyRow = {
@@ -74,7 +74,7 @@ export function RepresentativeScorePreview() {
           <Text style={styles.scoreOwner}>Elected official preview</Text>
         </View>
         <View style={styles.scoreBadge}>
-          <Text style={styles.scoreBadgeText}>Score</Text>
+          <Text style={styles.scoreBadgeText}>Official</Text>
         </View>
       </View>
 
@@ -156,12 +156,12 @@ function TopicPreviewPill({ icon, label }: { icon: AppIconName; label: string })
 const styles = StyleSheet.create({
   previewCard: {
     width: '100%',
-    minHeight: 138,
+    minHeight: 130,
     borderWidth: 1,
     borderColor: colors.gray200,
     borderRadius: radius.sm,
     backgroundColor: colors.white,
-    padding: spacing.md,
+    padding: 14,
     ...platformShadow({
       color: colors.navy950,
       opacity: 0.1,
@@ -175,8 +175,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   documentIcon: {
-    width: 38,
-    height: 38,
+    width: 36,
+    height: 36,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 12,
@@ -214,11 +214,11 @@ const styles = StyleSheet.create({
     fontWeight: '800',
   },
   questionStack: {
-    gap: spacing.sm,
-    marginTop: spacing.md,
+    gap: 7,
+    marginTop: 12,
   },
   questionRow: {
-    minHeight: 28,
+    minHeight: 27,
     flexDirection: 'row',
     alignItems: 'center',
     borderRadius: 10,
@@ -247,7 +247,7 @@ const styles = StyleSheet.create({
     borderColor: colors.gray200,
     borderRadius: radius.sm,
     backgroundColor: colors.white,
-    padding: spacing.md,
+    padding: 13,
   },
   topicPreviewHeader: {
     minHeight: 24,
@@ -264,12 +264,12 @@ const styles = StyleSheet.create({
   },
   topicPreviewRow: {
     flexDirection: 'row',
-    gap: spacing.sm,
-    marginTop: spacing.sm,
+    gap: 7,
+    marginTop: 7,
   },
   topicPreviewPill: {
     flex: 1,
-    minHeight: 30,
+    minHeight: 28,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -290,7 +290,7 @@ const styles = StyleSheet.create({
     borderColor: colors.gray200,
     borderRadius: radius.sm,
     backgroundColor: colors.white,
-    padding: spacing.md,
+    padding: 14,
     ...platformShadow({
       color: colors.navy950,
       opacity: 0.1,
@@ -331,7 +331,7 @@ const styles = StyleSheet.create({
     fontWeight: '800',
   },
   scoreValueRow: {
-    minHeight: 70,
+    minHeight: 60,
     flexDirection: 'row',
     alignItems: 'flex-end',
     justifyContent: 'center',
@@ -339,8 +339,8 @@ const styles = StyleSheet.create({
   },
   scoreValue: {
     color: colors.navy950,
-    fontSize: 54,
-    lineHeight: 58,
+    fontSize: 48,
+    lineHeight: 52,
     fontWeight: '800',
   },
   scoreTotal: {
@@ -351,11 +351,11 @@ const styles = StyleSheet.create({
     fontWeight: '800',
   },
   breakdown: {
-    gap: spacing.sm,
-    marginTop: spacing.sm,
+    gap: 7,
+    marginTop: 7,
   },
   scoreRow: {
-    minHeight: 36,
+    minHeight: 32,
   },
   scoreRowCopy: {
     flexDirection: 'row',
@@ -392,7 +392,7 @@ const styles = StyleSheet.create({
     borderColor: colors.gray200,
     borderRadius: radius.sm,
     backgroundColor: colors.white,
-    padding: spacing.md,
+    padding: 14,
     ...platformShadow({
       color: colors.navy950,
       opacity: 0.1,
@@ -414,11 +414,11 @@ const styles = StyleSheet.create({
     fontWeight: '800',
   },
   transparencyRows: {
-    gap: spacing.sm,
-    marginTop: spacing.md,
+    gap: 7,
+    marginTop: 12,
   },
   transparencyRow: {
-    minHeight: 34,
+    minHeight: 32,
     flexDirection: 'row',
     alignItems: 'center',
     borderRadius: 10,

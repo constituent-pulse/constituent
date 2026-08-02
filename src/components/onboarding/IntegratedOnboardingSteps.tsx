@@ -17,16 +17,16 @@ type ValidationErrors = {
 
 const REPRESENTATIVE_SCORE_POINTS = [
   {
-    icon: 'privacy/security',
-    text: 'This score belongs to elected officials.',
+    icon: 'alignment',
+    text: 'Shows how often officials vote with your stated positions.',
   },
   {
-    icon: 'latest vote',
-    text: 'It previews public accountability signals.',
+    icon: 'engagement',
+    text: 'Shows participation and whether they are doing the job they were elected to do.',
   },
   {
-    icon: 'score',
-    text: 'No final formula is set in this prototype.',
+    icon: 'committee',
+    text: 'Shows PAC and committee financial support as context for potential conflicts.',
   },
 ] as const satisfies readonly { icon: AppIconName; text: string }[];
 
@@ -46,11 +46,17 @@ export function SignupStep({
   return (
     <View style={styles.stepContent}>
       <UnderstandEveryVotePreview />
-      <Text accessibilityRole="header" style={styles.title}>
+      <Text
+        accessibilityRole="header"
+        adjustsFontSizeToFit
+        minimumFontScale={0.88}
+        numberOfLines={1}
+        style={[styles.title, styles.signupTitle]}
+      >
         Understand Every Vote
       </Text>
       <Text style={styles.body}>
-        Plain-language summaries, real impact, and vote records in one place.
+        See how votes affect you and how you are represented.
       </Text>
 
       <View style={styles.form}>
@@ -93,10 +99,10 @@ export function TopicSelectionStep({
     <View style={styles.stepContent}>
       <TopicSelectionPreview />
       <Text accessibilityRole="header" style={styles.title}>
-        Choose the issues that matter to you
+        Choose the issues that matter to you.
       </Text>
       <Text style={styles.body}>
-        Pick up to 5 topics to personalize what you see first.
+        Pick up to five topics that matter most to you.
       </Text>
 
       <TopicChipGroup
@@ -116,8 +122,9 @@ export function RepresentativeScoreStep({ selectedTopicCount }: { selectedTopicC
         Representative Score
       </Text>
       <Text style={styles.body}>
-        A public accountability score for elected officials, not for you.
+        This is an accountability score for your elected officials.
       </Text>
+      <Text style={styles.officialNote}>It belongs to the official, not you.</Text>
 
       <ExplanationList items={REPRESENTATIVE_SCORE_POINTS} />
       <SelectedTopicNote selectedTopicCount={selectedTopicCount} />
@@ -133,7 +140,7 @@ export function VoteTransparencyStep({ selectedTopicCount }: { selectedTopicCoun
         Vote Transparency
       </Text>
       <Text style={styles.body}>
-        See vote position, summary, impact, and source status clearly separated.
+        See how the official voted, plain-language summary, impact, and source status.
       </Text>
       <SelectedTopicNote selectedTopicCount={selectedTopicCount} />
     </View>
@@ -165,7 +172,7 @@ function SelectedTopicNote({ selectedTopicCount }: { selectedTopicCount: number 
       accessibilityLabel={`${selectedTopicCount} selected topics carried through onboarding`}
       style={styles.topicNote}
     >
-      {selectedTopicCount} selected {selectedTopicCount === 1 ? 'issue' : 'issues'} carried through this flow.
+      {selectedTopicCount} selected {selectedTopicCount === 1 ? 'issue' : 'issues'} carried forward.
     </Text>
   );
 }
@@ -174,38 +181,40 @@ const styles = StyleSheet.create({
   stepContent: {
     width: '100%',
     alignItems: 'center',
-    paddingTop: spacing.sm,
   },
   title: {
-    maxWidth: 330,
-    marginTop: spacing.md,
+    maxWidth: 335,
+    marginTop: 14,
     color: colors.navy950,
-    fontSize: 27,
-    lineHeight: 32,
+    fontSize: 26,
+    lineHeight: 31,
     fontWeight: '800',
     textAlign: 'center',
   },
+  signupTitle: {
+    width: '100%',
+  },
   body: {
-    maxWidth: 304,
-    marginTop: spacing.sm,
+    maxWidth: 315,
+    marginTop: 6,
     color: colors.navy950,
     fontSize: 14,
-    lineHeight: 20,
+    lineHeight: 19,
     fontWeight: '500',
     textAlign: 'center',
   },
   form: {
     width: '100%',
-    marginTop: spacing.xs,
+    marginTop: 2,
   },
   explanationList: {
     width: '100%',
-    marginTop: spacing.md,
-    gap: spacing.sm,
+    marginTop: 10,
+    gap: 6,
   },
   explanationRow: {
     width: '100%',
-    minHeight: 38,
+    minHeight: 42,
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -222,16 +231,24 @@ const styles = StyleSheet.create({
     flex: 1,
     color: colors.navy950,
     fontSize: 13,
-    lineHeight: 18,
+    lineHeight: 17,
     fontWeight: '700',
   },
   topicNote: {
     width: '100%',
-    marginTop: spacing.sm,
+    marginTop: 6,
     color: colors.textSecondary,
     fontSize: 12,
-    lineHeight: 16,
+    lineHeight: 15,
     fontWeight: '700',
+    textAlign: 'center',
+  },
+  officialNote: {
+    marginTop: 5,
+    color: colors.blue500,
+    fontSize: 13,
+    lineHeight: 17,
+    fontWeight: '800',
     textAlign: 'center',
   },
 });

@@ -66,10 +66,10 @@ export function VoteDetailsScreen({ bill }: VoteDetailsScreenProps) {
         <BillDetailsHeader bill={bill} onBack={handleBack} />
         <BillStatusTracker steps={bill.statusSteps} />
         <BillSummaryCard summary={bill.summary} />
+        <BillComplexityCard complexity={bill.complexity} />
         <BillInsideOverview metrics={bill.insideMetrics} />
         <ImpactGroupsCard groups={bill.impactGroups} />
         <WorthKnowingCard items={bill.worthKnowing} />
-        <BillComplexityCard complexity={bill.complexity} />
         <OfficialSourcesCard sources={bill.officialSources} />
         <VoteResponseCard
           onSelectResponse={setSelectedResponse}

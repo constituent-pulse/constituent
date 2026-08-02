@@ -60,10 +60,10 @@ const styles = StyleSheet.create({
     width: '100%',
     flex: 1,
     alignSelf: 'center',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     overflow: 'hidden',
     paddingHorizontal: spacing.lg,
-    paddingTop: spacing.md,
+    paddingTop: spacing.sm,
   },
   footerWrap: {
     width: '100%',
