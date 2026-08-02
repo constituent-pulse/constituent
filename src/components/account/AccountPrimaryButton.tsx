@@ -23,7 +23,7 @@ export function AccountPrimaryButton({ label, onPress }: AccountPrimaryButtonPro
 const styles = StyleSheet.create({
   button: {
     width: '100%',
-    height: 56,
+    height: 52,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: radius.sm,
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: colors.white,
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: '700',
   },
   pressed: {

@@ -69,9 +69,17 @@ export function TopicChipGroup({
   onToggleTopic,
   selectedTopics,
 }: TopicChipGroupProps) {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [topicPage, setTopicPage] = useState(0);
   const isLimitReached = selectedTopics.length === maxSelections;
-  const visibleTopics = isExpanded ? ACCOUNT_TOPICS : ACCOUNT_TOPICS.slice(0, INITIAL_VISIBLE_TOPICS);
+  const maxTopicPage = Math.ceil(ACCOUNT_TOPICS.length / INITIAL_VISIBLE_TOPICS) - 1;
+  const visibleTopics = ACCOUNT_TOPICS.slice(
+    topicPage * INITIAL_VISIBLE_TOPICS,
+    topicPage * INITIAL_VISIBLE_TOPICS + INITIAL_VISIBLE_TOPICS
+  );
+
+  function showMoreTopics() {
+    setTopicPage((currentPage) => (currentPage >= maxTopicPage ? 0 : currentPage + 1));
+  }
 
   return (
     <View style={styles.section}>
@@ -113,12 +121,14 @@ export function TopicChipGroup({
 
       <View style={styles.metaRow}>
         <Pressable
-          accessibilityLabel={isExpanded ? 'Show fewer topics' : 'Show more topics'}
+          accessibilityLabel="Show more topics"
           accessibilityRole="button"
-          onPress={() => setIsExpanded((currentValue) => !currentValue)}
+          onPress={showMoreTopics}
           style={({ pressed }) => [styles.showMoreButton, pressed && styles.pressed]}
         >
-          <Text style={styles.showMoreText}>{isExpanded ? 'Show Less' : 'Show More'}</Text>
+          <Text style={styles.showMoreText}>
+            {topicPage >= maxTopicPage ? 'First topics' : 'More topics'}
+          </Text>
           <AppIcon color="blue500" name="forward/chevron" size={15} weight="semibold" />
         </Pressable>
 
@@ -133,7 +143,7 @@ export function TopicChipGroup({
 const styles = StyleSheet.create({
   section: {
     width: '100%',
-    marginTop: spacing.lg,
+    marginTop: spacing.md,
   },
   grid: {
     width: '100%',
@@ -142,8 +152,8 @@ const styles = StyleSheet.create({
     gap: spacing.sm,
   },
   topicTile: {
-    width: '48%',
-    minHeight: 50,
+    width: '48.5%',
+    minHeight: 46,
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
@@ -163,8 +173,8 @@ const styles = StyleSheet.create({
     opacity: 0.52,
   },
   iconTile: {
-    width: 28,
-    height: 28,
+    width: 26,
+    height: 26,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 9,
@@ -177,21 +187,22 @@ const styles = StyleSheet.create({
   topicText: {
     flex: 1,
     color: colors.navy950,
-    fontSize: 13,
-    lineHeight: 17,
+    fontSize: 12,
+    lineHeight: 16,
     fontWeight: '800',
   },
   topicTextSelected: {
     color: colors.blue500,
   },
   metaRow: {
-    minHeight: 32,
+    minHeight: 44,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginTop: spacing.md,
+    marginTop: spacing.sm,
   },
   showMoreButton: {
+    minHeight: 44,
     flexDirection: 'row',
     alignItems: 'center',
     gap: spacing.xs,

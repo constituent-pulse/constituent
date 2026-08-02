@@ -12,7 +12,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { PulseLogo } from '@/src/components/PulseLogo';
 import { colors, spacing } from '@/src/theme/tokens';
 
-const SPLASH_DURATION_MS = 3250;
+const SPLASH_DURATION_MS = 5500;
 const USE_NATIVE_DRIVER = Platform.OS !== 'web';
 
 export default function SplashScreen() {

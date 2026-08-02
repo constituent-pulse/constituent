@@ -2,7 +2,6 @@ import type { ReactNode } from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
-  ScrollView,
   StyleSheet,
   useWindowDimensions,
   View,
@@ -22,33 +21,22 @@ export function IntegratedOnboardingShell({
 }: IntegratedOnboardingShellProps) {
   const insets = useSafeAreaInsets();
   const { width } = useWindowDimensions();
-  const contentMaxWidth = width >= 768 ? 420 : 640;
-  const footerBottomPadding = Math.max(insets.bottom, spacing.lg);
+  const contentMaxWidth = width >= 768 ? 390 : 640;
+  const footerBottomPadding = Math.max(insets.bottom, spacing.md);
 
   return (
     <SafeAreaView style={styles.safeArea}>
       <StatusBar style="dark" />
       <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.keyboard}
       >
-        <ScrollView
-          contentContainerStyle={[
-            styles.scrollContent,
-            {
-              maxWidth: contentMaxWidth,
-              paddingBottom: spacing.lg,
-            },
-          ]}
-          keyboardShouldPersistTaps="handled"
-          showsVerticalScrollIndicator={false}
-          style={styles.scroller}
-        >
-          {children}
-        </ScrollView>
+        <View style={styles.screen}>
+          <View style={[styles.content, { maxWidth: contentMaxWidth }]}>{children}</View>
 
-        <View style={[styles.footerWrap, { paddingBottom: footerBottomPadding }]}>
-          <View style={[styles.footerInner, { maxWidth: contentMaxWidth }]}>{footer}</View>
+          <View style={[styles.footerWrap, { paddingBottom: footerBottomPadding }]}>
+            <View style={[styles.footerInner, { maxWidth: contentMaxWidth }]}>{footer}</View>
+          </View>
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
@@ -58,26 +46,29 @@ export function IntegratedOnboardingShell({
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
+    overflow: 'hidden',
     backgroundColor: colors.white,
   },
   keyboard: {
     flex: 1,
   },
-  scroller: {
+  screen: {
     flex: 1,
+    justifyContent: 'space-between',
   },
-  scrollContent: {
+  content: {
     width: '100%',
-    flexGrow: 1,
+    flex: 1,
     alignSelf: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: spacing.xl,
-    paddingTop: spacing.lg,
+    justifyContent: 'flex-start',
+    overflow: 'hidden',
+    paddingHorizontal: spacing.lg,
+    paddingTop: spacing.md,
   },
   footerWrap: {
     width: '100%',
     alignItems: 'center',
-    paddingHorizontal: spacing.xl,
+    paddingHorizontal: spacing.lg,
     paddingTop: spacing.sm,
     backgroundColor: colors.white,
   },

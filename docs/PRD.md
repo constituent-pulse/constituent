@@ -4,7 +4,7 @@
 
 The approved onboarding flow is a single local, mobile-first experience that begins after the splash screen. It replaces the separate UI-002 onboarding and UI-003 account-creation handoff.
 
-`/` remains the splash route and stays visible for approximately 3.25 seconds before routing to `/onboarding`. The splash subtitle is "Understand Every Vote."
+`/` remains the splash route and stays visible for approximately 5.5 seconds before routing to `/onboarding`. The splash subtitle is "Understand Every Vote."
 
 `/onboarding` owns the full 4-step flow:
 

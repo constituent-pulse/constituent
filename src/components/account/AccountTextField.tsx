@@ -61,18 +61,19 @@ export function AccountTextField({
 const styles = StyleSheet.create({
   fieldGroup: {
     width: '100%',
-    marginTop: spacing.lg,
+    marginTop: 12,
   },
   label: {
     color: colors.navy950,
-    fontSize: 16,
+    fontSize: 13,
+    lineHeight: 17,
     fontWeight: '800',
   },
   inputWrap: {
-    height: 54,
+    height: 50,
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 10,
+    marginTop: spacing.sm,
     borderWidth: 1,
     borderColor: colors.gray300,
     borderRadius: radius.sm,
@@ -93,7 +94,7 @@ const styles = StyleSheet.create({
     flex: 1,
     minWidth: 0,
     color: colors.navy950,
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: '500',
   },
   errorText: {

@@ -8,7 +8,7 @@ This flow replaces the separate onboarding-to-account transition. It remains loc
 
 ## Route Flow
 
-1. `/` renders the splash screen for approximately 3.25 seconds.
+1. `/` renders the splash screen for approximately 5.5 seconds.
 2. Splash routes to `/onboarding`.
 3. `/onboarding` renders the complete 4-step integrated flow.
 4. Continue advances internal step state only.
@@ -78,8 +78,9 @@ State stays in memory for the current route session only. Browser refresh restar
 - `app/index.tsx`: splash timing, splash copy, and routing to `/onboarding`.
 - `app/onboarding.tsx`: integrated flow state, validation, topic state, and final navigation.
 - `app/account.tsx`: stale-link redirect to `/onboarding`.
-- `src/components/onboarding/IntegratedOnboardingShell.tsx`: safe area, keyboard behavior, scroll layout, and footer placement.
-- `src/components/onboarding/OnboardingIllustrations.tsx`: visual treatments for the 4 approved steps.
+- `src/components/onboarding/IntegratedOnboardingShell.tsx`: safe area, keyboard behavior, fixed no-scroll layout, and footer placement.
+- `src/components/onboarding/IntegratedOnboardingSteps.tsx`: concise step copy, form controls, topic grid, and score/transparency explanations.
+- `src/components/onboarding/OnboardingVisuals.tsx`: product-style interface previews for the 4 approved steps.
 - `src/components/onboarding/OnboardingProgress.tsx`: 4-dot progress indicator.
 - `src/components/account/AccountTextField.tsx`: shared Email and ZIP input primitive.
 - `src/components/account/AccountPrimaryButton.tsx`: shared Continue button.
@@ -87,7 +88,7 @@ State stays in memory for the current route session only. Browser refresh restar
 
 ## Acceptance Criteria
 
-- Splash remains visible for about 3.25 seconds.
+- Splash remains visible for about 5.5 seconds.
 - Splash subtitle reads "Understand Every Vote."
 - Splash routes to `/onboarding`.
 - `/onboarding` has exactly 4 integrated steps.
